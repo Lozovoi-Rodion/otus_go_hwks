@@ -1,4 +1,4 @@
-module github.com/Lozovoi-Rodion/otus_go_hwks
+module github.com/Lozovoi-Rodion/otus_go_hwks/hw01_hello_otus
 
 go 1.16
 
