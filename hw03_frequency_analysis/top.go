@@ -34,8 +34,7 @@ func Top10(str string) []string {
 		return wordOccurrences[i].times > wordOccurrences[j].times
 	})
 
-	topLength := 10
-	if len(wordOccurrences) > topLength {
+	if topLength := 10; len(wordOccurrences) > topLength {
 		wordOccurrences = wordOccurrences[:topLength]
 	}
 
