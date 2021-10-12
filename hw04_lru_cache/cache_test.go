@@ -65,8 +65,10 @@ func TestCache(t *testing.T) {
 
 		val, ok = c.Get("aaa")
 		require.False(t, ok)
+		require.Nil(t, val)
 		val, ok = c.Get("bbb")
 		require.False(t, ok)
+		require.Nil(t, val)
 	})
 }
 

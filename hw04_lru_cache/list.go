@@ -2,48 +2,48 @@ package hw04lrucache
 
 type List interface {
 	Len() int
-	Front() *listItem
-	Back() *listItem
-	PushFront(value interface{}) *listItem
-	PushBack(value interface{}) *listItem
-	Remove(n *listItem)
-	MoveToFront(n *listItem)
+	Front() *ListItem
+	Back() *ListItem
+	PushFront(value interface{}) *ListItem
+	PushBack(value interface{}) *ListItem
+	Remove(n *ListItem)
+	MoveToFront(n *ListItem)
 	isEmpty() bool
 }
 
-type listItem struct {
-	Prev  *listItem
+type ListItem struct {
+	Prev  *ListItem
 	Value interface{}
-	Next  *listItem
+	Next  *ListItem
 }
 
-func NewListItem(value interface{}) *listItem {
-	return &listItem{Value: value}
+func NewListItem(value interface{}) *ListItem {
+	return &ListItem{Value: value}
 }
 
-type doubleLinkedList struct {
-	head *listItem
-	tail *listItem
+type LinkedList struct {
+	head *ListItem
+	tail *ListItem
 	len  int
 }
 
-func NewList() *doubleLinkedList {
-	return &doubleLinkedList{}
+func NewList() *LinkedList {
+	return &LinkedList{}
 }
 
-func (l *doubleLinkedList) Len() int {
+func (l *LinkedList) Len() int {
 	return l.len
 }
 
-func (l *doubleLinkedList) Front() *listItem {
+func (l *LinkedList) Front() *ListItem {
 	return l.head
 }
 
-func (l *doubleLinkedList) Back() *listItem {
+func (l *LinkedList) Back() *ListItem {
 	return l.tail
 }
 
-func (l *doubleLinkedList) PushFront(value interface{}) *listItem {
+func (l *LinkedList) PushFront(value interface{}) *ListItem {
 	item := NewListItem(value)
 	if l.isEmpty() {
 		l.head = item
@@ -57,7 +57,7 @@ func (l *doubleLinkedList) PushFront(value interface{}) *listItem {
 	return item
 }
 
-func (l *doubleLinkedList) PushBack(value interface{}) *listItem {
+func (l *LinkedList) PushBack(value interface{}) *ListItem {
 	item := NewListItem(value)
 	if l.isEmpty() {
 		l.head = item
@@ -71,8 +71,9 @@ func (l *doubleLinkedList) PushBack(value interface{}) *listItem {
 	return item
 }
 
-func (l *doubleLinkedList) Remove(item *listItem) {
-	if l.head == item {
+func (l *LinkedList) Remove(item *ListItem) {
+	switch item {
+	case l.head:
 		if l.len == 1 {
 			l.head = nil
 			l.tail = nil
@@ -80,20 +81,25 @@ func (l *doubleLinkedList) Remove(item *listItem) {
 			item.Next.Prev = nil
 			l.head = item.Next
 		}
-	} else if l.tail == item {
+	case l.tail:
 		item.Prev.Next = nil
 		l.tail = item.Prev
-	} else {
+	default:
 		item.Prev.Next = item.Next
 		item.Next.Prev = item.Prev
 	}
+
 	l.len--
 	item.Prev = nil
 	item.Next = nil
 }
 
-func (l *doubleLinkedList) MoveToFront(item *listItem) {
-	if item == l.head || l.len == 1 && item == l.tail {
+func (l *LinkedList) MoveToFront(item *ListItem) {
+	if item == l.head {
+		return
+	}
+
+	if l.len == 1 && item == l.tail {
 		return
 	}
 
@@ -108,6 +114,6 @@ func (l *doubleLinkedList) MoveToFront(item *listItem) {
 	l.head = item
 }
 
-func (l *doubleLinkedList) isEmpty() bool {
+func (l *LinkedList) isEmpty() bool {
 	return l.len == 0
 }
