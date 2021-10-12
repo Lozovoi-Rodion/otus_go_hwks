@@ -20,8 +20,8 @@ type LruCache struct {
 }
 
 type cacheItem struct {
-	Key   Key
-	Value interface{}
+	key   Key
+	value interface{}
 }
 
 func newCacheItem(key Key, value interface{}) *cacheItem {
@@ -52,7 +52,7 @@ func (c *LruCache) Set(key Key, value interface{}) bool {
 		c.queue.Remove(queueItem)
 		cachedItem := queueItem.Value.(*cacheItem)
 
-		delete(c.items, cachedItem.Key)
+		delete(c.items, cachedItem.key)
 	}
 
 	ListItem := c.queue.PushFront(newItem)
@@ -67,7 +67,7 @@ func (c *LruCache) Get(key Key) (interface{}, bool) {
 	if el, ok := c.items[key]; ok {
 		c.queue.PushFront(el)
 		item := el.Value.(*cacheItem)
-		return item.Value, true
+		return item.value, true
 	}
 	return nil, false
 }

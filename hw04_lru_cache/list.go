@@ -4,10 +4,10 @@ type List interface {
 	Len() int
 	Front() *ListItem
 	Back() *ListItem
-	PushFront(value interface{}) *ListItem
-	PushBack(value interface{}) *ListItem
-	Remove(n *ListItem)
-	MoveToFront(n *ListItem)
+	PushFront(v interface{}) *ListItem
+	PushBack(v interface{}) *ListItem
+	Remove(i *ListItem)
+	MoveToFront(i *ListItem)
 	isEmpty() bool
 }
 
