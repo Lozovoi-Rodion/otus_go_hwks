@@ -44,7 +44,7 @@ var (
 	посидеть у огня и послушать какую-нибудь интересную сказку.
 		В этот вечер...`
 	shortText         = "less than ten ten ten words"
-	lexicographicText = "aaa aab abc acb bbb bba bca bac ccc cbb cbc cba"
+	lexicographicText = "ccc bbb abc acb aaa bba bca bac aab cbb cbc cba"
 	punctuationText   = "word, word! word? word word."
 	textWithCaps      = "word WORD wOrd WOrd worD woRd"
 )
@@ -135,5 +135,3 @@ func TestTop10(t *testing.T) {
 		require.Equal(t, expected, Top10(textWithCaps))
 	})
 }
-
-// 2. test with same words but different capitalization
